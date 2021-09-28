@@ -1,0 +1,4 @@
+percepcion gráfica
+tem-and-leaf plot
+horizon graph
+flow map
