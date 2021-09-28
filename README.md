@@ -10,3 +10,4 @@ Especialización en Ciencias de Datos ITBA - Comisión ECOM
 
 [mom2021mw38](https://marcosrojasitba.github.io/infovis21/mom2021w38)
 
+[Zoo.txt](https://raw.githubusercontent.com/marcosrojasITBA/infovis21/main/zoo.txt)
