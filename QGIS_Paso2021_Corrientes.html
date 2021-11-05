@@ -44,7 +44,8 @@ select agrupacion,totalxpartido, round(100<em>(totalxpartido/ (
 select sum(totalxpartido) from votospositivos)),2) as porcentaje
 from votospositivos
 order by porcentaje desc limit 4;
-</code></pre>
+</code></pre></p>
+
 En un tercer paso, se hizo el <em>“Join vectorial”</em> para unir los radios de los circuitos con la base electoral cargada en formato tsv. 
 Una vez terminado ese paso se procedió a el control de la vinculación y a realizar la graduación de los mapas
 los que se visualaran en el resultado. Para la graduación de aplicaron las siguientes reglas:</p>
