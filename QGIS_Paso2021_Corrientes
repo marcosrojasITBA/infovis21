@@ -1,0 +1,120 @@
+<div id="análisis-de-datos-científicos-y-geográficos" class="section level2">
+<h2>Análisis de Datos Científicos y Geográficos</h2>
+<div id="visualizando-el-resultado-de-las-paso-2021" class="section level3">
+<h3>Resultado de las PASO 2021 - Provincia de Corrientes</h3>
+</div>
+<div id="integrantes" class="section level3">
+<h3>Integrantes:</h3>
+<p>Fantin, Andrés Pablo</p>
+<p>Rojas, Marcos Fernando</p>
+<p>Azernicki, Carolina</p>
+</div>
+<div id="detalle-del-proceso" class="section level3">
+<h3>Fuente de Datos:</h3>
+Para la elaboración del presente trabajo se obtuvo información de las siguientes fuentes:</p>
+<p>1 - Resultados de las Paso de Corrientes <a href="https://www.argentina.gob.ar/elecciones/resultados-del-recuento-provisional-de-las-elecciones-paso">Descarga</a>.</p>
+<p>2 - Mapa de electoral de la provincia <a href="https://mapa2.electoral.gov.ar/descargas">Descarga</a>.</p>
+<p>3 - Mapa con las capas de los departamentos <a href="https://www.indec.gob.ar/indec/web/Institucional-Indec-Codgeo">Descarga</a>.</p>
+ <h3>Procedimiento:</h3>
+<p>En primer lugar se importó a QGis el archivo GeoJSON descargad de la página del mapa electoral. Luego lo importo desde QGis a Postgis.</p>
+<p>Luego, desde PostgresSQL se le dió formato a los circuitos, ya que había circuito con un lenght de 8 (Ej: 0012/A/B) o lenght 4</p>
+<p>Lo que par este ultimo se realizó lo siguiente:</p>
+
+  <pre class="sql"><code>
+select circuito, length (circuito) from circuitos<em>corrientes
+update circuitos_corrientes
+
+set circuito = &#39;0&#39; || circuito
+where length (circuito) = 4;
+
+</code></pre>
+En un segundo paso del procedimiento, se agregó en <strong>QGis</strong> la capa de las paso de la provincia del Corrientes <strong>Qgis</strong> en formato tsv. Se optó por diputados nacionales de la Provincia de Corrientes. Se obtuvieron las 4 Agrupaciones más importantes:</p>
+1- ECO + VAMOS CORRIENTES</br>
+2-FRENTE DE TODOS</br>
+3-VAMOS CON VOS</br>
+4-COMPROMISO FEDERAL</p>
+Los cuales se obtuvieron los siguientes resultados <a href="https://user-images.githubusercontent.com/90516584/140457986-5f89e302-d7fd-4676-911a-ee88f6614dcd.png">Abrir</a>
+<pre class="sql"><code>
+WITH votospositivos AS (
+select agrupacion, SUM(votos) as totalxpartido from corrientes 
+where cargo=&#39;DIPUTADOS NACIONALES&#39; and tipovoto=&#39;positivo&#39;
+group by agrupacion
+)
+select agrupacion,totalxpartido, round(100<em>(totalxpartido/ (
+select sum(totalxpartido) from votospositivos)),2) as porcentaje
+from votospositivos
+order by porcentaje desc limit 4;
+</code></pre>
+En un tercer paso, se hizo el <em>“Join vectorial”</em> para unir los radios de los circuitos con la base electoral cargada en formato tsv. 
+Una vez terminado ese paso se procedió a el control de la vinculación y a realizar la graduación de los mapas
+los que se visualaran en el resultado. Para la graduación de aplicaron las siguientes reglas:</p>
+<em>round(100</em>(  &quot;resultado_paso2021_eco</em>+_vamos corrientes&quot;  / &quot;resultado_paso2021_votospositivos&quot; ),1)</em></p>
+<em>round(100<em>( &quot;resultado_paso2021_frente_de_todos&quot; / &quot;resultado_paso2021_votospositivos&quot; ),1)</em></p>
+<em>round(100</em>(  &quot;resultado_paso2021_vamos_con_vos&quot;  / &quot;resultado_paso2021_votospositivos&quot; ),1)</em></p>
+<em>round(100*(  &quot;resultado_paso2021_compromiso_federal&quot;  / &quot;resultado_paso2021_votospositivos&quot; ),1)</em></p>
+
+Dicha regla se utilizó para aplicar la graduación y etiquetas de los 
+porcentaje de cada partido, con su respectivo circuito o departamento.</p>
+
+Como bien se comentó anteriormente, ambas reglas fueron utilizada para el mapa de circuitos
+como para el mapa por departamento. Se adjunta imagen de como quedaron guardados los mapas
+de cada agrupación politica <a href="https://user-images.githubusercontent.com/90516584/140459135-abad985c-0dcc-4d19-ac7f-b9e8d1cec2e6.png">Abrir</a>.
+<p>Para hacer los mapas se utilizó la simbología <em>“Graduado”</em> como haciamos mención 
+anteriormente, el modo <em>“Rupturas Naturales”</em>, para cada agrupacion se optó por un color de los distintos partidos politicos
+(o similares). Por cada capa generada se modificó el Valor y la etiqueta correspondiente a su Agrupación.</p>
+<h3>Resulados:</h3>
+A continuación ademas de los resultados se deja a disposición en un drive la importación de la base de Qgis y PosGis, 
+como así tambien el backup de la base utilizada en sqlpostgres.</p>
+
+<em>Resultados Obtenidos</em><a href="https://docs.google.com/presentation/d/1OHe2XzIyu5g25UCvw4f-U9nuaaplqzMGMrdwNDnH1o4/edit?usp=sharing">Abrir</a>.</p> 
+<em>Bases utilizada e imagenes</em><a href="https://drive.google.com/drive/folders/1gbw29JjRKPT1WNX-YDIP2INzz9FZutu8?usp=sharing">Abrir</a>.</p> 
+
+</div>
+</div>
+
+
+
+
+<p></div></p>
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<p><!-- dynamically load mathjax for compatibility with self-contained --></p>
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<p></body>
+</html></p>
