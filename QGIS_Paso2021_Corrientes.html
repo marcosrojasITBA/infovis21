@@ -46,7 +46,7 @@ from votospositivos
 order by porcentaje desc limit 4;
 </code></pre></p>
 
-En un tercer paso, se hizo el <em>“Join vectorial”</em> para unir los radios de los circuitos con la base electoral cargada en formato tsv. 
+En un tercer paso, se hizo el <em>“Join vectorial”</em> para unir los radios de los circuitos con la base electoral cargada en formato GEOJSON. 
 Una vez terminado ese paso se procedió a el control de la vinculación y a realizar la graduación de los mapas
 los que se visualaran en el resultado. Para la graduación de aplicaron las siguientes reglas:</p>
 <em>round(100</em>(  &quot;resultado_paso2021_eco</em>+_vamos corrientes&quot;  / &quot;resultado_paso2021_votospositivos&quot; ),1)</em></p>
