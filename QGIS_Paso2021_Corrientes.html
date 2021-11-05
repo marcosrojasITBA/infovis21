@@ -16,7 +16,7 @@ Para la elaboración del presente trabajo se obtuvo información de las siguient
 <p>2 - Mapa de electoral de la provincia <a href="https://mapa2.electoral.gov.ar/descargas">Descarga</a>.</p>
 <p>3 - Mapa con las capas de los departamentos <a href="https://www.indec.gob.ar/indec/web/Institucional-Indec-Codgeo">Descarga</a>.</p>
  <h3>Procedimiento:</h3>
-<p>En primer lugar se importó a QGis el archivo GeoJSON descargad de la página del mapa electoral. Luego lo importo desde QGis a Postgis.</p>
+<p>En primer lugar se importó a QGis el archivo GeoJSON descargado de la página del mapa electoral. Luego lo importo desde QGis a Postgis.</p>
 <p>Luego, desde PostgresSQL se le dió formato a los circuitos, ya que había circuito con un lenght de 8 (Ej: 0012/A/B) o lenght 4</p>
 <p>Lo que par este ultimo se realizó lo siguiente:</p>
 
@@ -46,7 +46,7 @@ from votospositivos
 order by porcentaje desc limit 4;
 </code></pre></p>
 
-En un tercer paso, se hizo el <em>“Join vectorial”</em> para unir los radios de los circuitos con la base electoral cargada en formato GEOJSON. 
+En un tercer paso, se hizo el <em>“Join vectorial”</em> para unir los radios de los circuitos con la base electoral cargada en formato tsv. 
 Una vez terminado ese paso se procedió a el control de la vinculación y a realizar la graduación de los mapas
 los que se visualaran en el resultado. Para la graduación de aplicaron las siguientes reglas:</p>
 <em>round(100</em>(  &quot;resultado_paso2021_eco</em>+_vamos corrientes&quot;  / &quot;resultado_paso2021_votospositivos&quot; ),1)</em></p>
