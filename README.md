@@ -12,7 +12,7 @@ Especialización en Ciencias de Datos ITBA - Comisión ECOM
 
 [zoo.txt](https://raw.githubusercontent.com/marcosrojasITBA/infovis21/main/zoo.txt)
 
-[QGIS_PASO2021_CORRIENTES].(https://github.com/marcosrojasITBA/infovis21/blob/main/QGIS_Paso2021_Corrientes.html)
+[QGIS_PASO2021_CORRIENTES](https://github.com/marcosrojasITBA/infovis21/blob/main/QGIS_Paso2021_Corrientes.html)
 
 
 [imagen1](https://user-images.githubusercontent.com/90516584/140457986-5f89e302-d7fd-4676-911a-ee88f6614dcd.png)
